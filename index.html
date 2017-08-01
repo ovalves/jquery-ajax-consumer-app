@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="description" content="Frontend Consumer Client App">
+	<link rel="icon" type="image/png" href="./assets/favicon.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<title>Client App</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css">
+  	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat|Oswald|Raleway|Roboto" rel="stylesheet">
+	<link href="./css/main.css" rel="stylesheet">
+</head>
+<body>
+	<header>
+		<nav class="nav-extended">
+			<div class="container">
+				<div class="nav-wrapper">
+					<a href="#!" class="brand-logo">
+						<img src="./assets/logo.png" alt="logotipo Client App">
+					</a>
+				</div>
+				<div class="nav-content">
+					<button type="button" id="open_create_modal" class="btn-floating btn-large halfway-fab waves-effect waves-light waves-green" data-target="#create_item">
+					  	<i class="material-icons">add</i>
+					</button>
+				</div>
+			</div>
+		</nav>
+	</header>
+
+	<main>
+		<div class="container">
+
+			<!-- pagination Component -->
+			<div class="row">
+				<div class="col s12">
+					<div class="center">
+						<ul id="pagination" class="pagination"></ul>
+					</div>
+				</div>
+			</div>
+
+			<!-- Search Component -->
+			<div class="row">
+        		<div class="col s12">
+          			<div class="input-field">
+					  	<input type="text" id="search-criteria">
+		            	<label for="search-criteria" data-error="wrong" data-success="right">Pesquisar Contatos</label>
+          			</div>
+        		</div>
+      		</div>
+
+			<!-- Breadcrumb Component -->
+			<div class="row">
+				<div class="col s12">
+					<nav>
+						<div class="nav-wrapper">
+							<div class="col s12">
+								Página <span id="current-page" class="breadcrumb">1</span>
+							</div>
+						</div>
+					</nav>
+				</div>
+			</div>
+
+			<!-- Table Component -->
+			<div class="row">
+				<div class="col s12">
+					<table id="table" class="bordered highlight">
+						<thead>
+							<tr>
+							<th>ID</th>
+							<th>Name</th>
+							<th width="200px">Action</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+				</div>
+			</div>
+
+			<!-- Create Contact Modal Component -->
+			<div class="modal fade" id="create_modal">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4>Cadastrar Contato</h4>
+					</div>
+					<div class="modal-body">
+						<form id="create_form">
+							<div class="input-field col s12">
+								<i class="material-icons prefix">account_circle</i>
+								<input id="name" type="text" name="name" placeholder="João" required class="validate">
+								<label for="name">name</label>
+							</div>
+							<div class="section">
+								<div class="right">
+									<a id="add-email-field" class="btn btn-floating tooltipped" data-position="left" data-delay="50" data-tooltip="Adicione campos de email">
+										<i class="material-icons">email</i>
+									</a>
+								</div>
+							</div>
+							<div id="email-group">
+								<div class="input-field col s12">
+									<i class="material-icons prefix">email</i>
+									<input id="email" type="email" name="email-0" placeholder="João@sample.com" required class="validate">
+									<label for="email">E-mail</label>
+								</div>
+							</div>
+							<div class="section">
+								<div class="right">
+									<a id="add-phone-field" class="btn btn-floating tooltipped" data-position="left" data-delay="50" data-tooltip="Adicione campos de telephone">
+										<i class="material-icons">phone</i>
+									</a>
+								</div>
+							</div>
+							<div id="phone-group">
+								<div class="input-field col s12">
+									<i class="material-icons prefix">phone</i>
+									<input id="phone" type="tel" name="phone-0" placeholder="+55 11 90003-0001" required class="validate">
+									<label for="phone">Telephone</label>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat close_create_modal">Cancelar</a>
+						<button type="button" id="btn_create_item" class="waves-effect waves-green btn-flat">Cadastrar</button>
+					</div>
+				</div>
+			</div>
+
+			<!-- Edit Contact Modal Component -->
+			<div id="edit_modal" class="modal">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4>Editando Contato:
+							<span id="current_contact_editing"></span>
+						</h4>
+					</div>
+					<div class="modal-body">
+						<form id="edit-form">
+							<input type="hidden" id="edit-contact-id" name="edit-contact-id" value="">
+							<div class="input-field col s12">
+								<i class="material-icons prefix">account_circle</i>
+								<input id="name" type="text" name="name" placeholder="João" required class="validate">
+								<label for="name">name</label>
+							</div>
+							<div class="section">
+								<div class="right">
+									<a id="add-email-field" class="btn btn-floating tooltipped" data-position="left" data-delay="50" data-tooltip="Adicione campos de email">
+										<i class="material-icons">email</i>
+									</a>
+								</div>
+							</div>
+							<div id="email-group"></div>
+							<div class="section">
+								<div class="right">
+									<a id="add-phone-field" class="btn btn-floating tooltipped" data-position="left" data-delay="50" data-tooltip="Adicione campos de telephone">
+										<i class="material-icons">phone</i>
+									</a>
+								</div>
+							</div>
+							<div id="phone-group"></div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat close_edit_modal">Cancelar</a>
+						<button type="button" id="btn_edit_item" class="waves-effect waves-green btn-flat">Atualizar</button>
+					</div>
+				</div>
+			</div>
+
+			<!-- Contact View Modal Component -->
+			<div id="contact_view_modal" class="modal">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" id="myModalLabel">
+							<span id="current_contact_viewing"></span>
+						</h4>
+					</div>
+					<div class="modal-body">
+						<div id="contact-email-data">
+							<h5></h5>
+							<ul class="collection" id="contact_property_email"></ul>
+						</div>
+						<div id="contact-phone-data">
+							<h5>Telefone</h5>
+							<ul class="collection" id="contact_property_phone"></ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+	<script type="text/javascript" src="./js/main.js"></script>
+</body>
+</html>

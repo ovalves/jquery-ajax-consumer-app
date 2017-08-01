@@ -1,0 +1,43 @@
+body {
+    font-family: 'Montserrat', 'Roboto', 'Raleway', 'Oswald', sans-serif;
+}
+
+main {
+    margin-top: 50px;
+}
+
+nav {
+    background-color: #17635c;
+}
+
+#current_contact_editing, #current_contact_viewing {
+    color: #26a69a;
+    font-weight: 700;
+}
+
+#table > tbody > tr > td:nth-child(3) > button {
+    margin-left: 5px;
+}
+
+.pagination li.active {
+    background-color: #f44336;
+}
+
+.chevron-right-link,
+.chevron-left-link {
+    cursor: pointer;
+}
+
+.modal::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #F5F5F5;
+}
+
+.modal::-webkit-scrollbar {
+    width: 10px;
+    background-color: #F5F5F5;
+}
+
+.modal::-webkit-scrollbar-thumb {
+    background-color: #26a69a;
+}
